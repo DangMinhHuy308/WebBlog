@@ -80,5 +80,7 @@
     <!-- Core theme JS-->
     <script src="~blog/js/scripts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
+
 </body>
 </html>
