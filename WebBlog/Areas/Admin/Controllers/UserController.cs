@@ -91,7 +91,7 @@ namespace WebBlog.Areas.Admin.Controllers
 					await _userManager.AddToRoleAsync(applicationUser, WebsiteRoles.WebsiteAuthor);
 				}
 				_notification.Success("User registered successfully");
-				return RedirectToAction("Index", "User", new { area = "Admin" });
+				return RedirectToAction("Index", "Post", new { area = "Admin" });
 			}
             foreach (var error in result.Errors)
             {
@@ -126,7 +126,7 @@ namespace WebBlog.Areas.Admin.Controllers
             }
             await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, vm.RememberMe, true);
             _notification.Success("Login Successful");
-            return RedirectToAction("Index", "User", new { area = "Admin" });
+            return RedirectToAction("Index", "Post", new { area = "Admin" });
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -180,5 +180,11 @@ namespace WebBlog.Areas.Admin.Controllers
             _notification.Success("Logout Success");
 			return RedirectToAction("Index", "Home", new {area=""});
 		}
+        [HttpGet("AccessDenied")]
+        [Authorize]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
