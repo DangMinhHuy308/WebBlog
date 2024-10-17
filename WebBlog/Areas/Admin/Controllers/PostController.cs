@@ -6,6 +6,7 @@ using WebBlog.Data;
 using WebBlog.Models;
 using WebBlog.Utilies;
 using WebBlog.ViewModels;
+using X.PagedList;
 
 namespace WebBlog.Areas.Admin.Controllers
 {
@@ -28,8 +29,10 @@ namespace WebBlog.Areas.Admin.Controllers
 
 		}
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? page)
         {
+			int pageSize = 5;
+			int pageNumber = (page ?? 1);
 			var listOfPosts = new List<Post>();
 			var loggedInUser = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity!.Name);
 			var loggedInUserRole = await _userManager.GetRolesAsync(loggedInUser!);
@@ -50,7 +53,7 @@ namespace WebBlog.Areas.Admin.Controllers
 				AuthorName = x.ApplicationUser!.FirstName + "" + x.ApplicationUser!.LastName
 			}).ToList();
 			
-			return View(listOfPostsVM);
+			return View(await listOfPostsVM.ToPagedListAsync(pageNumber,pageSize)); 
         }
         [HttpGet]
         public IActionResult Create()
