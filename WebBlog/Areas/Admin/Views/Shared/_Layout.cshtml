@@ -81,11 +81,17 @@
                             <h6 class="collapse-header">Custom Utilities:</h6>
                             <a class="collapse-item"asp-action="About" asp-controller="Page" asp-area="Admin">About</a>
                             <a class="collapse-item" asp-action="Contact" asp-controller="Page" asp-area="Admin">Contact</a>
-                            <a class="collapse-item" asp-action="PrivacyPolicy" asp-controller="Page" asp-area="Admin">Privacy Policy</a>
+                            <a class="collapse-item" asp-action="Privacy" asp-controller="Page" asp-area="Admin">Privacy Policy</a>
                         </div>
                     </div>
                 </li>
-
+                <!-- Nav Item - user -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Setting" asp-area="Admin">
+                        <i class="fas fa-fw fa-gear"></i>
+                        <span>Setting</span>
+                    </a>
+                </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider">
             }

@@ -1,21 +1,54 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebBlog.Data;
+using WebBlog.ViewModels;
 
 namespace WebBlog.Controllers
 {
     public class PageController : Controller
     {
-        
-        public IActionResult About()
+        private readonly ApplicationDbContext _context;
+        public PageController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
-        public IActionResult Contact()
+
+
+        public async Task<IActionResult> About()
         {
-            return View();
+            var page = await _context.Pages.FirstOrDefaultAsync(x => x.Slug == "about");
+            var vm = new PageVM()
+            {
+                Title = page.Title,
+                Description = page.Description,
+                ShortDescription = page.ShortDescription,
+                ThumbnailUrl = page.ThumbnailUrl    
+            };
+            return View(vm);
         }
-        public IActionResult PrivacyPolicy()
+        public async Task<IActionResult> Contact()
         {
-            return View();
+            var page = await _context.Pages.FirstOrDefaultAsync(x => x.Slug == "contact");
+            var vm = new PageVM()
+            {
+                Title = page.Title,
+                Description = page.Description,
+                ShortDescription = page.ShortDescription,
+                ThumbnailUrl = page.ThumbnailUrl
+            };
+            return View(vm);
+        }
+        public async Task<IActionResult> PrivacyPolicy()
+        {
+            var page = await _context.Pages.FirstOrDefaultAsync(x => x.Slug == "privacy");
+            var vm = new PageVM()
+            {
+                Title= page.Title,
+                Description = page.Description,
+                ShortDescription = page.ShortDescription,
+                ThumbnailUrl = page.ThumbnailUrl
+            };
+            return View(vm);
         }
     }
 }
